@@ -18,3 +18,9 @@
  * @version 1.0
  *
  */
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "camera.h"
+#include "presence_sense.h"

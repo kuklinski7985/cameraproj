@@ -18,3 +18,12 @@
  * @version 1.0
  *
  */
+
+#include "main.h"
+
+int main(int argc, char * argv[])
+{
+  printf("Hello everyone!\n");
+  printf("working...!\n");
+  return 0;
+}
