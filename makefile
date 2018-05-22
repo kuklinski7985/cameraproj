@@ -34,14 +34,14 @@
 # */
 
 #Set up for the file structure noted above
-PRODUCT := camera.elf
+PRODUCT := main.elf
 INCDIR := inc
 SRCDIR := src
 OBJDIR := obj
 
 #linker and complier options
 CC := gcc
-DEBUG := -pthread -g -Wall -Werror -O0 #-lrt
+DEBUG := -pthread -g -Wall -Werror -O0 -lrt
 LDFLAGS = -lm -Wl,-Map
 
 #indicates the the complier should look in the inc directory for user .h files
@@ -70,7 +70,7 @@ $(PRODUCT): $(OBJFILES)
 #file with .o suffix is dependant on a file with the same name, different
 #suffix and heres how to make it
 $(OBJDIR)/%.o: $(SRCDIR)/%.c 
-	$(CC) $(DEBUG)$(LDFLAGS) $(INCDIRS) -c $< -o $@
+	$(CC) $(DEBUG) $(LDFLAGS) $(INCDIRS) -c $< -o $@
 
 #-MM directive goes into the files and generates the prereqs automatically
 
