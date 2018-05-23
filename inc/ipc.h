@@ -65,15 +65,29 @@ typedef struct ipcmessage{
 /**
  *@brief use this to send logging messages to file
  *
- * This function sends the loggging struct to the associated logger thread
- * as well as prints the message to the screen.
+ * This function accepts the paraments for the ipc message struct
+ * and adds them to a struct.  The created struct is returned
  * 
  *@param type: enum message type
  *@param message: string message listed in log entry
  *@param data: any numerical data that is nessary here
  *
- *@return void *
+ *@return pointer to log message struct
  */
-void logmessage(message_t in_type, source_t in_source, char * in_message, void * in_data);
+ipcmessage_t * logmessage(message_t in_type, source_t in_source, char * in_message, void * in_data);
 
+/**
+ *@brief prints log message to the screen
+ *
+ * This function accepts a pointer to a struct and prints its
+ * members to the screen.  the logmessage function should be called 
+ * first in order to populate the struct and to obtain the created struct
+ * 
+ *@param type: enum message type
+ *@param message: string message listed in log entry
+ *@param data: any numerical data that is nessary here
+ *
+ *@return pointer to log message struct
+ */
+void printf_struct(ipcmessage_t * structMessage);
 #endif /*ipc_h_*/

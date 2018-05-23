@@ -66,7 +66,14 @@ int main(int argc, char * argv[])
   pthread_join(logger_thread, NULL);
 
   /************************Close queues and un_link****************************/
-  mq_close(log_queue);
+  //mq_close(log_queue);
   
   return 0;
 }
+
+
+/*next steps
+- create the logger queue, include the mouting of the queue file
+- create / copy the functions necessary for creating a new text log file
+- link the queue and logger file similar in fashion to project 1
+*/

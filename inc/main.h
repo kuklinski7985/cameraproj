@@ -42,6 +42,5 @@ pthread_t motion_thread;
 pthread_t logger_thread;
 
 /****variable for queue creation***/
-file_t logfile;             //file where logger information is stored
 mqd_t log_queue;            //queue for logger
 struct mq_attr ipc_attr;    //attributes for ipc queue

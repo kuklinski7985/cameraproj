@@ -21,23 +21,29 @@
 
 #include "ipc.h"
 
-void logmessage(message_t in_type, source_t in_source, char * in_message, void * in_data)
+ipcmessage_t * logmessage(message_t in_type, source_t in_source, char * in_message, void * in_data)
 {
     struct timeval my_timestamp;                        //creates instance of time struct
     gettimeofday(&my_timestamp,NULL);
     
-    ipcmessage_t message_struct;
-    snprintf(message_struct.timestamp,16,"%ld.%ld\n",(my_timestamp.tv_sec-1513728000), my_timestamp.tv_usec);
-    message_struct.source = in_source;
-    message_struct.mess_type = in_type;
-    strcpy(message_struct.message_string, in_message);
-    message_struct.data = in_data;
+    ipcmessage_t * message_struct = malloc(sizeof(message_struct));
+
+    snprintf(message_struct->timestamp,16,"%ld.%ld\n",(my_timestamp.tv_sec-1513728000), my_timestamp.tv_usec);
+    message_struct->source = in_source;
+    message_struct->mess_type = in_type;
+    strcpy(message_struct->message_string, in_message);
+    message_struct->data = in_data;
 
     //send struct to queue
+    printf_struct(message_struct);
+    return message_struct;
+}
 
+void printf_struct(ipcmessage_t * structMessage)
+{
     char print_source[MAX_MESSAGE_LENGTH];
     char print_type[MAX_MESSAGE_LENGTH];
-    switch(in_type)
+    switch(structMessage->mess_type )
     {
         case 0:
             strcpy(print_type, "INFO");
@@ -50,7 +56,7 @@ void logmessage(message_t in_type, source_t in_source, char * in_message, void *
             break;
     }
 
-    switch(in_source)
+    switch(structMessage->source)
     {
         case 0:
             strcpy(print_source, "IPC_NONE");
@@ -68,8 +74,6 @@ void logmessage(message_t in_type, source_t in_source, char * in_message, void *
             strcpy(print_source, "BROKEN!");
             break;
     }
-
-
-    printf("[%s]|[%s]|[%s]| %s\n",message_struct.timestamp,print_type, 
-                                print_source, message_struct.message_string);
+    printf("[%s][%s][%s] %s\n",structMessage->timestamp,print_type, 
+                                print_source, structMessage->message_string);
 }
